@@ -35,7 +35,8 @@ int main() {
 	for (int i = 4; i <= 10; i++) {
 		myList.push_back(i);
 	}
-	std::cout << myList.at(2);
+	myList.print_list();
+	//std::cout << myList.at(2);
 
 	/*
 	list.push_back("1");
