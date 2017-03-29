@@ -79,8 +79,31 @@ public:
 		}
 	}
 
+	/* Inserts a new node in the list at a_index with a_data*/
+	void insert(const T& a_data, int a_index) {
+		// If we have an empty list, insert at index zero
+		if (m_root == nullptr) {
+			Node<T> *newNode = new Node<T>(a_data);
+			m_root = newNode;
+			return;
+		}
+
+		int count = 0;
+		Node<T> *conductor = m_root;
+
+		while (conductor != nullptr) {
+			count++;
+			conductor = conductor->next;
+
+			if (count == a_index) {
+				LOG("Index exists in list");
+			}
+		}
+
+	}
+
 	/* Returns the data at i index */
-	T* at(int a_index) {
+	T& at(int a_index) {
 		
 		/* If the list is empty exit from the function */
 		if (m_root == nullptr) {
@@ -101,6 +124,26 @@ public:
 
 			currentIndex++;
 			conductor = conductor->next;
+		}
+	}
+
+	/*
+	* Returns the size of the list
+	*/
+	int size() {
+
+		int length = 0;
+
+		if (m_root == nullptr) {
+			return length;
+		}
+
+		Node<T> *conductor = m_root;
+
+		while (conductor != nullptr) {
+			conductor = conductor->next;
+
+			length++;
 		}
 	}
 
