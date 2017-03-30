@@ -12,11 +12,13 @@ class Node {
 public:
 	Node(T a_data) {
 		next = nullptr;
+		prev = nullptr;
 		value = a_data;
 	}
 public:
 	T value;
 	Node *next;
+	Node *prev;
 };
 
 
@@ -71,6 +73,7 @@ public:
 				if (conductor->next == nullptr) {
 					//std::cout << "added value " << a_value << " to the list" << std::endl;
 					conductor->next = new Node<T>(a_data);
+					conductor->next->prev = conductor;
 					return;
 				}
 
@@ -153,18 +156,24 @@ public:
 	void pop_back() {
 		Node<T> *conductor = m_root;
 
-		if (conductor == nullptr) {
-			LOG("You're trying to pop an empty list\n");
+		if (m_root == nullptr) {
+			return;
+		}
+
+		if (m_root->next == nullptr) {
+			delete m_root;
+			return;
 		}
 
 		// Go through the list
 		while (conductor != nullptr) {
-			// Are we closing in at the tail? 
-			if (conductor->next->next == nullptr)
+
+			// Are we at the tail
+			if (conductor->next == nullptr)
 			{
-				// destroy the tail and set conductors next node to a null pointer
-				conductor->next = nullptr;
-				delete conductor->next;
+				// Destroy the tail and set conductors next node to a null pointer
+				conductor->prev->next = nullptr;
+				delete conductor;
 				return;
 			}
 			conductor = conductor->next;
